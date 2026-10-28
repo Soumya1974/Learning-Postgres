@@ -1,6 +1,5 @@
-import type { Request, Response, NextFunction } from "express"
-import { response } from "express"
-import { EditUser, User } from "./user.types.ts"
+import type { Request, Response, NextFunction } from "express";
+import { EditUser, User } from "./user.types.ts";
 import { handleCreateUserService, handleDeleteUserService, handleUserUpdateService } from "./user.services.ts";
 import { AppError } from "../../shared/utils/AppError.ts";
 
@@ -20,12 +19,12 @@ export const handleCreateUser = async (
             message: "User created",
             success: true,
             response: response
-        })
+        });
 
     } catch (error) {
         next(error);
     }
-}
+};
 
 export const handleUpdateUser = async (
     req: Request,
@@ -39,18 +38,18 @@ export const handleUpdateUser = async (
             throw new AppError(400, "User name and uuid must not be empty");
         }
 
-        const reponse: EditUser = await handleUserUpdateService(userData);
+        const updatedUser: EditUser = await handleUserUpdateService(userData);
 
         res.status(200).json({
             message: "Updated user information",
             success: true,
-            response: response
-        })
+            response: updatedUser
+        });
 
     } catch (error) {
         next(error);
     }
-}
+};
 
 export const handleDeleteUser = async (
     req: Request,
@@ -69,9 +68,9 @@ export const handleDeleteUser = async (
         res.status(200).json({
             message: "User Deleted",
             success: true,
-        })
-        
+        });
+
     } catch (error) {
         next(error);
     }
-}
+};
