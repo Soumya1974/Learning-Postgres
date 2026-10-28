@@ -1,7 +1,7 @@
 import type { Request, Response, NextFunction } from "express";
 import { AppError } from "../../shared/utils/AppError.ts";
 import { handleCreateProjectServices, handleGetProjectServices } from "./project.services.ts";
-import { CreateProject, ViewProjects } from "./project.types.ts";
+import { CreateProject } from "./project.types.ts";
 
 export const handleCreateProject = async (
     req: Request,
@@ -34,7 +34,7 @@ export const handleGetProjects = async (
     next: NextFunction
 ) => {
     try {
-        const { userId } = req.body as ViewProjects;
+        const { userId } = req.params as { userId: string };
 
         if(!userId){
             throw new AppError(400, "User id must not be empty");
