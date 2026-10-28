@@ -1,6 +1,6 @@
 import { AppError } from "../../shared/utils/AppError.ts";
-import { handleCreateProjectRow } from "./project.repository";
-import { CreateProject } from "./project.types.ts";
+import { handleCreateProjectRow, handleGetProjectRow } from "./project.repository.ts";
+import { CreateProject, ViewProjects } from "./project.types.ts";
 
 export const handleCreateProjectServices = async (input: CreateProject) => {
     if(!input || typeof input !== "object"){
@@ -16,4 +16,16 @@ export const handleCreateProjectServices = async (input: CreateProject) => {
     }
 
     return await handleCreateProjectRow(input);
+}
+
+export const handleGetProjectServices = async (input: ViewProjects) => {
+    if(!input || typeof input !== "object"){
+        throw new AppError(400, "Request body must include user id");
+    }
+
+    if(!input.userId || input.userId.trim() === ""){
+        throw new AppError(400, "Missing user id");
+    }
+
+    return await handleGetProjectRow(input);
 }
