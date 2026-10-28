@@ -22,7 +22,9 @@ export const handleGetProjectRow = async (input: ViewProjects) => {
             projects.title
         FROM projects
         INNER JOIN users
-        ON projects.id = users.$1;
+        ON projects.user_id = users.id
+        WHERE users.id = $1;
     `
-    return await pool.query(query, [input.userId]);
+    const result = await pool.query(query, [input.userId]);
+    return result.rows;
 }
