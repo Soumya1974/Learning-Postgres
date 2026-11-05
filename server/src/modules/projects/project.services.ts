@@ -9,6 +9,7 @@ export const handleCreateProjectServices = async (input: CreateProject) => {
 
     if(!input.title || input.title.trim() === ""){
         throw new AppError(400, "Missing project title or user id");
+        console.log("Title is not available");
     }
 
     if(!input.userId || input.userId.trim() === ""){
